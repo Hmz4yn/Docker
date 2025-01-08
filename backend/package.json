@@ -1,0 +1,15 @@
+{
+    "name": "docker-fullstack-backend",
+    "version": "1.0.0",
+    "main": "app.cjs",
+    "type": "commonjs",
+
+    "scripts": {
+        "start": "node app.cjs"
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "sqlite3": "^5.1.7",
+        "cors": "^2.8.5"
+    }
+}

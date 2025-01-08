@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Fullstack App</title>
+</head>
+<body>
+    <h1>Docker Fullstack App</h1>
+    <input type="text" id="messageInput" placeholder="Enter a message" />
+    <button onclick="sendMessage()">Send</button>
+    <ul id="messages"></ul>
+
+    <script>
+        async function fetchMessages() {
+            const response = await fetch("http://localhost:3001/messages");
+            const messages = await response.json();
+            const messagesList = document.getElementById("messages");
+            messagesList.innerHTML = "";
+            messages.forEach(msg => {
+                const li = document.createElement("li");
+                li.textContent = msg.text;
+                messagesList.appendChild(li);
+            });
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById("messageInput");
+            const response = await fetch("http://localhost:3001/messages", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: input.value }),
+            });
+            if (response.ok) {
+                input.value = "";
+                fetchMessages();
+            }
+        }
+
+        fetchMessages();
+    </script>
+</body>
+</html>
